@@ -8,8 +8,11 @@ export default function Movie({ name, streaming, index, onClick, isOpen }) {
   } = streaming
   return (
     <Swipeable
-      onSwipedLeft={() => onClick(index)}
-      onSwipedRight={() => onClick(index)}
+      onSwipedLeft={() => isOpen && onClick(index)}
+      onSwipedRight={() => !isOpen && onClick(index)}
+      preventDefaultTouchmoveEvent={true}
+      trackTouch={true}
+      delta={50}
     >
       <Title onClick={() => onClick(index)}>
         <StreamingPlattfom isOpen={isOpen} plattforms={locations} />
