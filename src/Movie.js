@@ -7,7 +7,10 @@ export default function Movie({ name, streaming, index, onClick, isOpen }) {
     collection: { locations },
   } = streaming
   return (
-    <Swipeable onSwiped={() => onClick(index)}>
+    <Swipeable
+      onSwipedLeft={() => onClick(index)}
+      onSwipedRight={() => onClick(index)}
+    >
       <Title onClick={() => onClick(index)}>
         <StreamingPlattfom isOpen={isOpen} plattforms={locations} />
         {name}
