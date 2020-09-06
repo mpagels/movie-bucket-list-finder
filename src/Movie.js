@@ -1,4 +1,5 @@
 import React from 'react'
+import { Swipeable } from 'react-swipeable'
 import styled from 'styled-components/macro'
 
 export default function Movie({ name, streaming, index, onClick, isOpen }) {
@@ -6,12 +7,12 @@ export default function Movie({ name, streaming, index, onClick, isOpen }) {
     collection: { locations },
   } = streaming
   return (
-    <MovieContainer onClick={() => onClick(index)}>
-      <Title>
+    <Swipeable onSwiped={() => onClick(index)}>
+      <Title onClick={() => onClick(index)}>
         <StreamingPlattfom isOpen={isOpen} plattforms={locations} />
         {name}
       </Title>
-    </MovieContainer>
+    </Swipeable>
   )
 }
 
@@ -27,15 +28,12 @@ function StreamingPlattfom({ plattforms, isOpen }) {
   )
 }
 
-const MovieContainer = styled.div`
-  cursor: pointer;
-`
-
 const Title = styled.div`
   font-size: 24px;
   margin: 20px 0;
   position: relative;
   text-align: center;
+  cursor: pointer;
 `
 
 const Streaming = styled.div`
