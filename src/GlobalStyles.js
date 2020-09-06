@@ -19,5 +19,6 @@ body {
     --iTunesIVADE: #CC45F2;
     --AmazonPrimeVideoIVADE: #00a8e1;
     --AmazonInstantVideoIVADE: #86D06D;
+    --DisneyPlusIVADE: #0F1B4D;
     }
 `

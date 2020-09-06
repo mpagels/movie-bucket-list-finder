@@ -6,6 +6,7 @@ const allMovies = Object.keys(buckelist[0])
 
 function App() {
   const [filterdMovies, setFilterdMovies] = useState(allMovies)
+  const [isActive, setIsActive] = useState('')
   const isEmpty = filterdMovies.length === 0
 
   return (
@@ -21,19 +22,30 @@ function App() {
           ;-(
         </Alert>
       ) : (
-        filterdMovies.map((movieName) => (
-          <Movie key={movieName} {...buckelist[0][movieName]} />
+        filterdMovies.map((movieName, index) => (
+          <Movie
+            key={movieName}
+            onClick={handleClick}
+            index={index}
+            isOpen={isActive === index}
+            {...buckelist[0][movieName]}
+          />
         ))
       )}
     </Wrapper>
   )
 
   function inputHandler(event) {
+    setIsActive('')
     setFilterdMovies(
       allMovies.filter((movieTitle) =>
         movieTitle.toLowerCase().includes(event.target.value.toLowerCase())
       )
     )
+  }
+
+  function handleClick(index) {
+    setIsActive(isActive === index ? '' : index)
   }
 }
 
