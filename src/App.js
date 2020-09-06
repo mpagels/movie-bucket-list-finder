@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import buckelist from './bucketList_20200508.json'
 import styled from 'styled-components'
-
+import Movie from './Movie'
 const allMovies = Object.keys(buckelist[0])
 
 function App() {
@@ -21,8 +21,8 @@ function App() {
           ;-(
         </Alert>
       ) : (
-        filterdMovies.map((movieName, index) => (
-          <p key={movieName}>{movieName}</p>
+        filterdMovies.map((movieName) => (
+          <Movie key={movieName} {...buckelist[0][movieName]} />
         ))
       )}
     </Wrapper>
@@ -43,11 +43,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  p {
-    font-size: 24px;
-    text-align: center;
-  }
 `
 
 const Input = styled.input`
