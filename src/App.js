@@ -10,27 +10,41 @@ function App() {
   const [filterdMovies, setFilterdMovies] = useState(allMovies)
   const [isActive, setIsActive] = useState('')
   const isEmpty = filterdMovies.length === 0
-  const [activeFilter , setActiveFilter] = useState("movie")
-  const [searchInput, setSearchInput] = useState("")
-  
+  const [activeFilter, setActiveFilter] = useState('movie')
+  const [searchInput, setSearchInput] = useState('')
+
   return (
     <Wrapper>
       <Input
-        placeholder="Search List"
+        placeholder="Search List by"
         type="text"
         onChange={(event) => inputHandler(event, activeFilter)}
       ></Input>
       <FilterWrapper>
-
-      <FilterButton title="by movie name" isActive = {activeFilter === "movie"} onClick={handleFilter} filterName="movie"/>
-      <FilterButton title="by actor name" isActive = {activeFilter === "actor"} onClick={handleFilter} filterName="actor"/>
+        <FilterButton
+          title="movie"
+          isActive={activeFilter === 'movie'}
+          onClick={handleFilter}
+          filterName="movie"
+        />
+        <FilterButton
+          title="actor"
+          isActive={activeFilter === 'actor'}
+          onClick={handleFilter}
+          filterName="actor"
+        />
+        <FilterButton
+          title="director"
+          isActive={activeFilter === 'director'}
+          onClick={handleFilter}
+          filterName="director"
+        />
       </FilterWrapper>
 
-    
       {isEmpty ? (
         <Alert>
           Movie not in list <br />
-          ;-(
+          ;-&#40;
         </Alert>
       ) : (
         filterdMovies.map((movieName, index) => (
@@ -48,28 +62,8 @@ function App() {
 
   function inputHandler(event, filter) {
     setIsActive('')
-
     setSearchInput(event.target.value)
-
-    filter === "movie" 
-    ?
-    setFilterdMovies(
-      allMovies.filter((movieTitle) =>
-        movieTitle
-        .toLowerCase()
-        .includes(event.target.value.toLowerCase())
-      )
-    )
-    :
-    setFilterdMovies(
-      allMovies.filter((movieTitle) =>
-      buckelist[0][movieTitle].tmdb.actors
-      .filter(name => 
-        name.toLowerCase()
-        .includes(event.target.value.toLowerCase()))
-        .length > 0 
-      )
-    )
+    filterMovies(filter)
   }
 
   function handleClick(index) {
@@ -78,25 +72,33 @@ function App() {
 
   function handleFilter(filter) {
     setActiveFilter(filter)
-    filter === "movie" 
-    ?
-    setFilterdMovies(
-      allMovies.filter((movieTitle) =>
-        movieTitle
-        .toLowerCase()
-        .includes(searchInput.toLowerCase())
-      )
-    )
-    :
-    setFilterdMovies(
-      allMovies.filter((movieTitle) =>
-      buckelist[0][movieTitle].tmdb.actors
-      .filter(name => 
-        name.toLowerCase()
-        .includes(searchInput.toLowerCase()))
-        .length > 0 
-      )
-    )
+    filterMovies(filter)
+  }
+
+  function filterMovies(filter) {
+    filter === 'movie'
+      ? setFilterdMovies(
+          allMovies.filter((movieTitle) =>
+            movieTitle.toLowerCase().includes(searchInput.toLowerCase())
+          )
+        )
+      : filter === 'actor'
+      ? setFilterdMovies(
+          allMovies.filter(
+            (movieTitle) =>
+              buckelist[0][movieTitle].tmdb.actors.filter((name) =>
+                name.toLowerCase().includes(searchInput.toLowerCase())
+              ).length > 0
+          )
+        )
+      : setFilterdMovies(
+          allMovies.filter(
+            (movieTitle) =>
+              buckelist[0][movieTitle].tmdb.director.filter((name) =>
+                name.toLowerCase().includes(searchInput.toLowerCase())
+              ).length > 0
+          )
+        )
   }
 }
 
@@ -129,7 +131,6 @@ const Alert = styled.p`
 `
 
 const FilterWrapper = styled.div`
-display: flex;
-justify-content: space-around;
-
+  display: flex;
+  justify-content: space-around;
 `
