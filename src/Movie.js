@@ -55,7 +55,7 @@ const Plattform = styled.div`
   display: inline;
   flex-grow: 1;
   font-size: ${(props) => (props.isOpen ? '12px' : '100%')};
-  height: 25px;
+  height: 35px;
   width: 100%;
   color: ${(props) =>
     props.name === 'DisneyPlusIVADE' || props.name === 'NetflixIVADE'
