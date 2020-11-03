@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import buckelist from './bucketList_20200508.json'
 import styled from 'styled-components'
-
+import Movie from './Movie'
 const allMovies = Object.keys(buckelist[0])
 
 function App() {
   const [filterdMovies, setFilterdMovies] = useState(allMovies)
+  const [isActive, setIsActive] = useState('')
   const isEmpty = filterdMovies.length === 0
 
   return (
@@ -22,18 +23,29 @@ function App() {
         </Alert>
       ) : (
         filterdMovies.map((movieName, index) => (
-          <p key={movieName}>{movieName}</p>
+          <Movie
+            key={movieName}
+            onClick={handleClick}
+            index={index}
+            isOpen={isActive === index}
+            {...buckelist[0][movieName]}
+          />
         ))
       )}
     </Wrapper>
   )
 
   function inputHandler(event) {
+    setIsActive('')
     setFilterdMovies(
       allMovies.filter((movieTitle) =>
         movieTitle.toLowerCase().includes(event.target.value.toLowerCase())
       )
     )
+  }
+
+  function handleClick(index) {
+    setIsActive(isActive === index ? '' : index)
   }
 }
 
@@ -43,11 +55,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  p {
-    font-size: 24px;
-    text-align: center;
-  }
 `
 
 const Input = styled.input`
