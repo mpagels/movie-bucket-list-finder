@@ -3,11 +3,10 @@ import buckelist from './bucketList_20200508.json'
 import styled from 'styled-components'
 import Movie from './Movie'
 import FilterButton from './components/FilterButton/FilterButton'
-
-const allMovies = Object.keys(buckelist[0])
+import useFilterMovies from './hooks/useMovieFilter'
 
 function App() {
-  const [filterdMovies, setFilterdMovies] = useState(allMovies)
+  const [filterdMovies, filterMovies] = useFilterMovies()
   const [isActive, setIsActive] = useState('')
   const isEmpty = filterdMovies.length === 0
   const [activeFilter, setActiveFilter] = useState('movie')
@@ -63,7 +62,7 @@ function App() {
   function inputHandler(event, filter) {
     setIsActive('')
     setSearchInput(event.target.value)
-    filterMovies(filter)
+    filterMovies(filter, event.target.value)
   }
 
   function handleClick(index) {
@@ -72,33 +71,7 @@ function App() {
 
   function handleFilter(filter) {
     setActiveFilter(filter)
-    filterMovies(filter)
-  }
-
-  function filterMovies(filter) {
-    filter === 'movie'
-      ? setFilterdMovies(
-          allMovies.filter((movieTitle) =>
-            movieTitle.toLowerCase().includes(searchInput.toLowerCase())
-          )
-        )
-      : filter === 'actor'
-      ? setFilterdMovies(
-          allMovies.filter(
-            (movieTitle) =>
-              buckelist[0][movieTitle].tmdb.actors.filter((name) =>
-                name.toLowerCase().includes(searchInput.toLowerCase())
-              ).length > 0
-          )
-        )
-      : setFilterdMovies(
-          allMovies.filter(
-            (movieTitle) =>
-              buckelist[0][movieTitle].tmdb.director.filter((name) =>
-                name.toLowerCase().includes(searchInput.toLowerCase())
-              ).length > 0
-          )
-        )
+    filterMovies(filter, searchInput)
   }
 }
 
@@ -127,6 +100,7 @@ const Input = styled.input`
 `
 
 const Alert = styled.p`
+  text-align: center;
   color: #1e375c;
 `
 
