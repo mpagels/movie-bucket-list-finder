@@ -24,21 +24,18 @@ function App() {
       <FilterWrapper>
         <FilterButton
           title="movie"
-          isActive={activeFilter === 'movie'}
+          activeFilter={activeFilter}
           onClick={handleFilter}
-          filterName="movie"
         />
         <FilterButton
           title="actor"
-          isActive={activeFilter === 'actor'}
+          activeFilter={activeFilter}
           onClick={handleFilter}
-          filterName="actor"
         />
         <FilterButton
           title="director"
-          isActive={activeFilter === 'director'}
+          activeFilter={activeFilter}
           onClick={handleFilter}
-          filterName="director"
         />
       </FilterWrapper>
 

@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 
-export default function FilterButton({ title, isActive, onClick, filterName }) {
+export default function FilterButton({ title, activeFilter, onClick }) {
   return (
     <>
-      <Button isActive={isActive} onClick={() => onClick(filterName)}>
+      <Button isActive={title === activeFilter} onClick={() => onClick(title)}>
         {title}
       </Button>
     </>
