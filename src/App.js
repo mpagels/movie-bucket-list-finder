@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Movie from './Movie'
 import FilterButton from './components/FilterButton/FilterButton'
 import useFilterMovies from './hooks/useMovieFilter'
+import InputField from './components/Inputs/InputField'
 
 function App() {
   const [filterdMovies, filterMovies] = useFilterMovies()
@@ -14,11 +15,12 @@ function App() {
 
   return (
     <Wrapper>
-      <Input
+      <InputField
         placeholder="Search List by"
         type="text"
-        onChange={(event) => inputHandler(event, activeFilter)}
-      ></Input>
+        activeFilter={activeFilter}
+        onChange={inputHandler}
+      />
       <FilterWrapper>
         <FilterButton
           title="movie"
@@ -81,22 +83,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-`
-
-const Input = styled.input`
-  all: unset;
-  border-bottom: 1px solid #d1def0;
-  border-left: none;
-  border-right: none;
-  border-top: none;
-  color: #14253e;
-  font-size: 38px;
-  margin: 20px;
-  padding: 0 20px 0 20px;
-  text-align: center;
-  &::placeholder {
-    color: #1e375c;
-  }
 `
 
 const Alert = styled.p`
