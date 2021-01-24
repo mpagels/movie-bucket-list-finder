@@ -54,7 +54,10 @@ function App() {
           onClick={handleFilter}
         />
       </FilterWrapper>
-      <GenreButton onClick={handleGenreButton} isActive={genreIsOpen}>
+      <GenreButton
+        onClick={handleGenreButton}
+        isActive={genreIsOpen || activeGenreFilter}
+      >
         genre
       </GenreButton>
       {genreIsOpen && (
