@@ -158,14 +158,14 @@ const GenreButton = styled.button`
 const MiniButton = styled.button`
   all: unset;
   text-align: center;
-  padding: 3px;
+  padding: 6px;
   margin: 3px;
-  border-radius: 2px;
+  border-radius: 15px;
   ${(props) =>
     props.isActive
       ? 'background-color: var(--ButtonActive); color: white;'
       : 'background-color: white; color: var(--ButtonActive);'}
-  border: solid 2px var(--ButtonActive);
+  border: solid 1px var(--ButtonActive);
   cursor: pointer;
 `
 
