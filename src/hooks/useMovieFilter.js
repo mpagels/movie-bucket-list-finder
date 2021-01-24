@@ -31,5 +31,5 @@ export default function useMovieFilter() {
         )
   }
 
-  return [filterdMovies, filterMovies]
+  return { filterdMovies, filterMovies }
 }
