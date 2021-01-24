@@ -7,21 +7,28 @@ import useFilterMovies from './hooks/useMovieFilter'
 import InputField from './components/Inputs/InputField'
 
 function App() {
-  const {
-    filterdMovies,
-    filterMovies,
-    activeGenreFilter,
-    setActiveGenreFilter,
-  } = useFilterMovies()
+  const { filterdMovies, filterMovies } = useFilterMovies()
 
   const [isActive, setIsActive] = useState('')
-  const isEmpty = filterdMovies.length === 0
+
   const [activeFilter, setActiveFilter] = useState('movie')
   const [searchInput, setSearchInput] = useState('')
   const [genreIsOpen, setGenreIsOpen] = useState(false)
-  const genresList = useMemo(() => createGenres(buckelist), [buckelist])
+  const [activeGenreFilter, setActiveGenreFilter] = useState('')
+  const genresList = useMemo(() => createGenres(buckelist), [])
 
-  console.log(genresList)
+  const moviesToDisplay =
+    activeGenreFilter !== ''
+      ? filterdMovies.filter((movie) => {
+          const genres = buckelist[0][movie].tmdb.genres.filter(
+            (genre) => genre.name === activeGenreFilter
+          )
+          return genres.length > 0
+        })
+      : filterdMovies
+
+  const isEmpty = moviesToDisplay.length === 0
+
   return (
     <Wrapper>
       <InputField
@@ -69,7 +76,7 @@ function App() {
           ;-&#40;
         </Alert>
       ) : (
-        filterdMovies.map((movieName, index) => (
+        moviesToDisplay.map((movieName, index) => (
           <Movie
             key={movieName}
             onClick={handleClick}
